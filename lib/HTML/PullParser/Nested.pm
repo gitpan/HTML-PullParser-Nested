@@ -1,4 +1,4 @@
-# $Id: Nested.pm 4610 2010-03-09 13:51:21Z chris $
+# $Id: Nested.pm 4636 2010-03-09 16:15:27Z chris $
 
 =head1 NAME
 
@@ -9,26 +9,26 @@ HTML::PulParser::Nested
 
 use HTML::PullParser::Nested;
 
-my $p = HTML::PullParser::Nested->new(
-    doc         => \ "<html>...<ul><li>abcd<li>efgh<li>wvyz</ul>...<ul><li>1<li>2<li>9</ul></html>",
-    start       => "'S',tagname,attr,attrseq,text",
-    end         => "'E',tagname,text",
-    text        => "'T',text,is_cdata",
-    );
-
-while (my $token = $p->get_token()) {
-    if ($token->[0] eq "S" && $token->[1] eq "ul") {
-        $p->push_nest($token);
-        print "List:\n";
-        while (my $token = $p->get_token()) {
-            if ($token->[0] eq "S" && $token->[1] eq "li") {
-                print $p->get_token()->[1], "\n";
+    my $p = HTML::PullParser::Nested->new(
+        doc         => \ "<html>...<ul><li>abcd<li>efgh<li>wvyz</ul>...<ul><li>1<li>2<li>9</ul></html>",
+        start       => "'S',tagname,attr,attrseq,text",
+        end         => "'E',tagname,text",
+        text        => "'T',text,is_cdata",
+        );
+    
+    while (my $token = $p->get_token()) {
+        if ($token->[0] eq "S" && $token->[1] eq "ul") {
+            $p->push_nest($token);
+            print "List:\n";
+            while (my $token = $p->get_token()) {
+                if ($token->[0] eq "S" && $token->[1] eq "li") {
+                    print $p->get_token()->[1], "\n";
+                }
             }
+            print "\n";
+            $p->pop_nest();
         }
-        print "\n";
-        $p->pop_nest();
     }
-}
 
 
 =head1 DESCRIPTION
@@ -60,7 +60,7 @@ package HTML::PullParser::Nested;
 use strict;
 use warnings;
 
-our $VERSION = '0.02';
+our $VERSION = '0.03';
 
 use Carp;
 
@@ -68,8 +68,7 @@ use HTML::PullParser;
 
 =head1 METHODS
 
-=head2 new(file => $file, %options)
-=head2 new(doc => \$doc, %options)
+=head2 new(file => $file, %options), new(doc => \$doc, %options)
 
 Constructor.  %options gets passed to the encapsulated HTML::PullParser 
 object and largely has the same restrictions.  As HTML::PullParser::Nested
@@ -91,7 +90,8 @@ Reverse the effects of get_token().
 
 =head2 eol()
 
-End of level flag
+End of level flag.  Returns true after get_token() has returned undef to 
+signify end of level.
 
 =head2 push_nest($token)
 
@@ -102,7 +102,13 @@ corresponding close tag.
 The corresponding closing tag is determined by counting the start and 
 end tags of the current nesting level.  This means that if 
 
-    "<a><b><a><a><a></b></a>" 
+    <a>
+        <b>
+            <a>
+            <a>
+            <a>
+        </b>
+    </a>
 
 is encountered whilst the current nesting level is tracking <a> tags, 
 the parser will end either end up 3 tags deeper or at the same depth 
