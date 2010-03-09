@@ -1,8 +1,8 @@
-# $Id: Nested.pm 4636 2010-03-09 16:15:27Z chris $
+# $Id: Nested.pm 4647 2010-03-09 18:10:10Z chris $
 
 =head1 NAME
 
-HTML::PulParser::Nested
+HTML::PullParser::Nested - Wrapper around HTML::PullParser with awareness of tag nesting.
 
 
 =head1 SYNOPSIS
@@ -60,7 +60,7 @@ package HTML::PullParser::Nested;
 use strict;
 use warnings;
 
-our $VERSION = '0.03';
+our $VERSION = '0.04';
 
 use Carp;
 
@@ -364,6 +364,11 @@ sub _canon_token {
 }
 
 1;
+
+=head1 SEE ALSO
+
+L<HTML::PullParser>
+
 
 =head1 AUTHOR
 

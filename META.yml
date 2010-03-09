@@ -1,13 +1,15 @@
 --- #YAML:1.0
 name:               HTML-PullParser-Nested
-version:            0.03
-abstract:           ~
-author:  []
-license:            unknown
+version:            0.04
+abstract:           Wrapper around HTML::PullParser with awareness of tag nesting.
+author:
+    - Christopher Key <cjk32@cam.ac.uk>
+license:            perl
 distribution_type:  module
 configure_requires:
     ExtUtils::MakeMaker:  0
-requires:  {}
+requires:
+    HTML::PullParser:  0
 no_index:
     directory:
         - t
