@@ -1,15 +1,16 @@
-# $Id: Nested.pm 4604 2010-03-09 13:28:54Z chris $
+# $Id: Nested.pm 4610 2010-03-09 13:51:21Z chris $
 
 =head1 NAME
 
 HTML::PulParser::Nested
+
 
 =head1 SYNOPSIS
 
 use HTML::PullParser::Nested;
 
 my $p = HTML::PullParser::Nested->new(
-    doc         => \ "<html>...<ul><li>abcd<li>efgh<li>wvyz</ul>...<ul><li>1<li>2<li>9</ul></html>"
+    doc         => \ "<html>...<ul><li>abcd<li>efgh<li>wvyz</ul>...<ul><li>1<li>2<li>9</ul></html>",
     start       => "'S',tagname,attr,attrseq,text",
     end         => "'E',tagname,text",
     text        => "'T',text,is_cdata",
@@ -51,18 +52,7 @@ only containing the content up the closing tag.  It is then possible to
 pop a nesting level, which then moves the cursor to the start of the 
 closing tag and switches to the parent nesting level.
 
-=head1 AUTHOR
-
-Christopher Key (cjk32@cam.ac.uk)
-
-=head1 COPYRIGHT
-
-Copyright 2010, Christopher Key.
-This module is free software. It may be used, redistributed and/or 
-modified under the same terms as Perl itself.
-
 =cut
-
 
 
 package HTML::PullParser::Nested;
@@ -70,7 +60,7 @@ package HTML::PullParser::Nested;
 use strict;
 use warnings;
 
-our $VERSION = '0.01';
+our $VERSION = '0.02';
 
 use Carp;
 
@@ -368,3 +358,18 @@ sub _canon_token {
 }
 
 1;
+
+=head1 AUTHOR
+
+Christopher Key <cjk32@cam.ac.uk>
+
+
+=head1 COPYRIGHT AND LICENCE
+
+Copyright (C) 2010 Christopher Key <cjk32@cam.ac.uk>
+
+This library is free software; you can redistribute it and/or modify
+it under the same terms as Perl itself, either Perl version 5.8.4 or,
+at your option, any later version of Perl 5 you may have available.
+
+=cut

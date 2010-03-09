@@ -1,4 +1,4 @@
-$Id: README 3675 2010-01-14 11:35:01Z chris $
+$Id: README 4608 2010-03-09 13:47:00Z chris $
 
 INTRODUCTION
 ============
@@ -18,17 +18,13 @@ INSTALLATION
 DEPENDENCIES
 ============
 
-Class::Accessor
-Cache::FileCache
-File::Spec::Functions
-LWP::UserAgent
-URI
-TODO...
+HTML::PullParser
+
 
 COPYRIGHT AND LICENCE
 =====================
 
-Copyright (C) 2010 by Christopher Key <cjk32@cam.ac.uk>
+Copyright (C) 2010 Christopher Key <cjk32@cam.ac.uk>
 
 This library is free software; you can redistribute it and/or modify
 it under the same terms as Perl itself, either Perl version 5.8.4 or,
